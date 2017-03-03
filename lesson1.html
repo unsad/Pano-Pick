@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/three.js/three.js"></script>
+</head>
+<body onload="init()">
+    <canvas id="mainCanvas" width="400px" height="300px"></canvas>
+</body>
+<script>
+    function init() {
+        // 创建基础场景设施
+          let renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('mainCanvas')
+        }),
+            scene = new THREE.Scene(),
+            camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000);
+        // 创建需要的对象
+        let cube = new THREE.Mesh(new THREE.CubeGeometry(10, 10, 10),
+            new THREE.MeshBasicMaterial({
+                color: 0x666666
+            })),
+            torus = [];
+        for (let i = 0;i < 4;i++) {
+            torus[i] = new THREE.Mesh(new THREE.TorusGeometry(2, 1, 10 ,10),
+                new THREE.MeshBasicMaterial({
+                    color: 0xffffff
+                }));
+            scene.add(torus[i]);
+        }
+        // 相机定位
+        camera.position.set(40, 40, 40);
+        camera.lookAt({
+            x: 0,
+            y: 0,
+            z: 0
+        });
+        // 布局
+        torus[0].position.set(5, -5, 5);
+        torus[1].position.set(5, -5, -5);
+        torus[2].position.set(-5, -5, 5);
+        torus[3].position.set(-5, -5, -5);
+        scene.add(cube);
+        scene.add(camera);
+        renderer.setClearColor(0xdddddd);
+        renderer.render(scene, camera);
+    }
+</script>
+</html>

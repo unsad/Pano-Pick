@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="bower_components/three.js/three.js"></script>
     <script src="js/TrackballControls.js"></script>
 </head>
-<body onload="init()">
+<body>
     <canvas id="mainCanvas" width="400px" height="300px"></canvas>
 </body>
 <script>
+    window.onload = function() {
+        var controls;
+        init();
+        animate();
+    }
     function init() {
         // 创建基础场景设施
           let renderer = new THREE.WebGLRenderer({
@@ -18,8 +24,11 @@
             scene = new THREE.Scene(),
             camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000),
         loader = new THREE.TextureLoader();
+        // 相机定位
+        camera.position.set(20, 20, 20);
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
         // 配置控制器
-        let controls =new THREE.TrackballControls(camera);
+        controls =new THREE.TrackballControls(camera);
         controls.rotateSpeed = 1.0;
         controls.zoomSpeed = 1.2;
         controls.panSpeed = 0.8;
@@ -28,8 +37,9 @@
         controls.staticMoving = true;
         controls.dynamicDampingFactor = 0.3;
         controls.keys = [ 65, 83, 68 ];
-        controls.addEventListener( 'change', renderer );
-        controls.enabled = true;
+        controls.addEventListener( 'change', function() {
+            renderer.render(scene, camera);
+        });
         // 创建贴图对象
         let light = new THREE.SpotLight(0xffffff, 1, 100, Math.PI / 6, 25);
         loader.load('imgs/plane.jpg', function(tex) {
@@ -70,13 +80,6 @@
             torus[3].position.set(-5, -5, -5);
             renderer.render(scene, camera);
         });
-        // 相机定位
-        camera.position.set(20, 20, 20);
-        camera.lookAt({
-            x: 0,
-            y: 0,
-            z: 0
-        });
 
         // 阴影配置
 
@@ -96,6 +99,10 @@
         scene.add(camera);
         renderer.setClearColor(0xdddddd);
         renderer.render(scene, camera);
+    }
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
     }
 </script>
 </html>

@@ -1,0 +1,27 @@
+.desc{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    color:#fff;
+    font-size:12px;
+    z-index:100;
+}
+body {
+    background-color: #000000;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#info {
+    position: absolute;
+    top: 0; width: 100%;
+    color: #ffffff;
+    padding: 5px;
+    font-size:13px;
+    font-weight: bold;
+    text-align:center;
+}
+
+a {
+    color: #ffffff;
+}

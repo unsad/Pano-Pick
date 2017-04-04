@@ -4,7 +4,7 @@
     <div class="info">
       <div v-if="!over">剩余时间: {{time}}s</div>
       <div v-show="over">
-        <router-link to="/getMoney">领取牛币</router-link>
+        <router-link to="/getMoney">恭喜你找到{{foundCount}}个拼图，领取牛币</router-link>
       </div>
     </div>
   </div>
@@ -16,8 +16,9 @@
     name: 'game',
     data() {
       return {
-        time: 20,
-        over: false
+        time: 600,
+        over: false,
+        foundCount: 0
       }
     },
     created() {
@@ -33,11 +34,15 @@
             this.over = true;
           }
         }, 1000);
-      }
+      },
+      init,
+      animate,
+      addEvent
     },
     mounted() {
-      init();
-      animate();
+      this.init();
+      this.animate();
+      this.addEvent();
     }
   }
   var camera, scene, renderer;
@@ -65,23 +70,23 @@
 
     var container, mesh;
 
-    container = document.getElementById( 'container' );
+    container = document.getElementById('container');
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-    camera.target = new THREE.Vector3( 0, 0, 0 );
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1100);
+    camera.target = new THREE.Vector3(0, 0, 0);
 
     scene = new THREE.Scene();
 
-    var geometry = new THREE.SphereGeometry( 500, 60, 40 );
-    geometry.scale( - 1, 1, 1 );
+    var geometry = new THREE.SphereGeometry(500, 60, 40);
+    geometry.scale(-1, 1, 1);
 
-    var material = new THREE.MeshBasicMaterial( {
+    var material = new THREE.MeshBasicMaterial({
       map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/2294472375_24a3b8ef46_o.jpg')
-    } );
+    });
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh(geometry, material);
 
-    scene.add( mesh );
+    scene.add(mesh);
     /* add the spirits here */
     var spriteMaterial = new THREE.SpriteMaterial({
       map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
@@ -156,92 +161,97 @@
     /* The End */
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    container.appendChild( renderer.domElement );
-
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-    document.addEventListener( 'wheel', onDocumentMouseWheel, false );
-
-    //
-
-    document.addEventListener( 'dragover', function ( event ) {
-
-      event.preventDefault();
-      event.dataTransfer.dropEffect = 'copy';
-
-    }, false );
-
-    document.addEventListener( 'dragenter', function ( event ) {
-
-      document.body.style.opacity = 0.5;
-
-    }, false );
-
-    document.addEventListener( 'dragleave', function ( event ) {
-
-      document.body.style.opacity = 1;
-
-    }, false );
-
-    document.addEventListener( 'drop', function ( event ) {
-
-      event.preventDefault();
-
-      var reader = new FileReader();
-      reader.addEventListener( 'load', function ( event ) {
-
-        material.map.image.src = event.target.result;
-        material.map.needsUpdate = true;
-
-      }, false );
-      reader.readAsDataURL( event.dataTransfer.files[ 0 ] );
-
-      document.body.style.opacity = 1;
-
-    }, false );
-
-    //
-
-    window.addEventListener('resize', onWindowResize, false);
-    /* bind touch events */
-    window.addEventListener('touchstart', onTouchstart, false);
-    window.addEventListener('touchmove', onTouchmove, false);
-    window.addEventListener('touchend', onTouchend, false);
-    /* The End */
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
   }
-  /* touch event handlers */
-  function onTouchstart(event) {
+function addEvent() {
+  document.addEventListener('mousedown', onDocumentMouseDown(this), false);
+  document.addEventListener('mousemove', onDocumentMouseMove, false);
+  document.addEventListener('mouseup', onDocumentMouseUp, false);
+  document.addEventListener('wheel', onDocumentMouseWheel, false);
+
+  //
+
+  document.addEventListener('dragover', function (event) {
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+
+  }, false);
+
+  document.addEventListener('dragenter', function (event) {
+
+    document.body.style.opacity = 0.5;
+
+  }, false);
+
+  document.addEventListener('dragleave', function (event) {
+
+    document.body.style.opacity = 1;
+
+  }, false);
+
+  document.addEventListener('drop', function (event) {
 
     event.preventDefault();
 
-    isUserInteracting = true;
+    var reader = new FileReader();
+    reader.addEventListener('load', function (event) {
 
-    onPointerDownPointerX = event.changedTouches[0].pageX;
-    onPointerDownPointerY = event.changedTouches[0].pageY;
+      material.map.image.src = event.target.result;
+      material.map.needsUpdate = true;
 
-    onPointerDownLon = lon;
-    onPointerDownLat = lat;
+    }, false);
+    reader.readAsDataURL(event.dataTransfer.files[0]);
 
-    /* click events */
-    mouse.x = (event.changedTouches[0].pageX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.changedTouches[0].pageY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-    var intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0) {
-      if (intersects[0].object.id > 3) {
-        intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
-        intersects[0].object.scale.set(50, 50, 1);
-        scores[intersects[0].object.id] = true;
-        if (foundAll()) {
-          console.log('恭喜你已找出所有拼图');
-          alert('恭喜你已找出所有拼图，请领取礼物');
+    document.body.style.opacity = 1;
+
+  }, false);
+
+  //
+
+  window.addEventListener('resize', onWindowResize, false);
+  /* bind touch events */
+  window.addEventListener('touchstart', onTouchstart(this), false);
+  window.addEventListener('touchmove', onTouchmove, false);
+  window.addEventListener('touchend', onTouchend, false);
+    /* The End */
+  }
+  /* touch event handlers */
+  function onTouchstart(vm) {
+    return function (event) {
+
+      isUserInteracting = true;
+
+      onPointerDownPointerX = event.changedTouches[0].pageX;
+      onPointerDownPointerY = event.changedTouches[0].pageY;
+
+      onPointerDownLon = lon;
+      onPointerDownLat = lat;
+
+      /* click events */
+      mouse.x = (event.changedTouches[0].pageX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.changedTouches[0].pageY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      var intersects = raycaster.intersectObjects(scene.children);
+      if (intersects.length > 0) {
+        if (intersects[0].object.id > 3) {
+          intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
+          intersects[0].object.scale.set(50, 50, 1);
+          if ( scores[intersects[0].object.id] === false) {
+            scores[intersects[0].object.id] = true;
+            vm.foundCount += 1;
+          }
+          console.log(scores,vm.foundCount);
+          if (foundAll()) {
+            console.log('恭喜你已找出所有拼图');
+            alert('恭喜你已找出所有拼图，请领取礼物');
+          }
         }
       }
+      /* The End */
     }
-    /* The End */
   }
 
   function onTouchmove(event) {
@@ -280,36 +290,41 @@
 
   }
 
-  function onDocumentMouseDown( event ) {
+  function onDocumentMouseDown(vm) {
+    return function (event) {
 
-    event.preventDefault();
+      event.preventDefault();
 
-    isUserInteracting = true;
+      isUserInteracting = true;
 
-    onPointerDownPointerX = event.clientX;
-    onPointerDownPointerY = event.clientY;
+      onPointerDownPointerX = event.clientX;
+      onPointerDownPointerY = event.clientY;
 
-    onPointerDownLon = lon;
-    onPointerDownLat = lat;
+      onPointerDownLon = lon;
+      onPointerDownLat = lat;
 
-    /* click events */
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-    var intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0) {
-      if (intersects[0].object.id > 3)
-      {
-        intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
-        intersects[0].object.scale.set(50, 50, 1);
-        scores[intersects[0].object.id] = true;
-        if (foundAll()) {
-          console.log('恭喜你已找出所有拼图');
-          alert('恭喜你已找出所有拼图，请领取礼物');
+      /* click events */
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      var intersects = raycaster.intersectObjects(scene.children);
+      if (intersects.length > 0) {
+        if (intersects[0].object.id > 3) {
+          intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
+          intersects[0].object.scale.set(50, 50, 1);
+          if (scores[intersects[0].object.id] === false) {
+            scores[intersects[0].object.id] = true;
+            vm.foundCount += 1;
+          }
+          console.log(scores,vm.foundCount);
+          if (foundAll()) {
+            console.log('恭喜你已找出所有拼图');
+            alert('恭喜你已找出所有拼图，请领取礼物');
+          }
         }
       }
+      /* The End */
     }
-    /* The End */
   }
 
   function onDocumentMouseMove( event ) {

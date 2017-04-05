@@ -4354,6 +4354,10 @@ text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "http://registry.npm.taobao.org/text-table/download/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
+three-onevent@^1.0.6:
+  version "1.0.6"
+  resolved "http://registry.npm.taobao.org/three-onevent/download/three-onevent-1.0.6.tgz#4f163fee0e900eaacd5260fde6bd1111fa526209"
+
 three@0.81.0:
   version "0.81.0"
   resolved "http://registry.npm.taobao.org/three/download/three-0.81.0.tgz#bf9b8b9757ee584c2b01bd25c9c0a16e6f9b88f6"

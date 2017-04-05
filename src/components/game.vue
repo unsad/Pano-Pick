@@ -57,13 +57,9 @@
   var raycaster = new THREE.Raycaster();
   var mouse = new THREE.Vector2();
 
-  var scores = { '4': false, '5': false, '6': false, '7': false, '8': false };
+  var scores = [];
   var foundAll = function () {
-    var r = true;
-    for (var i = 4; i < 9; i++) {
-      r = r && scores[i];
-    }
-    return r;
+    return !scores.includes(false);
   };
 
   function init() {
@@ -88,77 +84,26 @@
 
     scene.add(mesh);
     /* add the spirits here */
-    var spriteMaterial = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
-      color: 0xffffff,
-      fog: true
-    });
 
-    var sprite = new THREE.Sprite(spriteMaterial);
-    sprite.scale.set(5, 5, 1);
-    sprite.position.x = 225;
-    sprite.position.y = 105;
-    sprite.position.z = 400;
-
-    scene.add(sprite);
-
-    var spriteMaterial_1 = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
-      color: 0xffffff,
-      fog: true
-    });
-
-    var sprite_1 = new THREE.Sprite(spriteMaterial_1);
-    sprite_1.scale.set(7, 7, 1);
-    sprite_1.position.x = 400;
-    sprite_1.position.y = -250;
-    sprite_1.position.z = 50;
-
-    scene.add(sprite_1);
-
-    var spriteMaterial_2 = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
-      color: 0xffffff,
-      fog: true
-    });
-
-    var sprite_2 = new THREE.Sprite(spriteMaterial_2);
-    sprite_2.scale.set(10, 10, 1);
-    sprite_2.position.x = 380;
-    sprite_2.position.y = 280;
-    sprite_2.position.z = 10;
-
-    scene.add(sprite_2);
-
-    var spriteMaterial_3 = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
-      color: 0xffffff,
-      fog: true
-    });
-
-    var sprite_3 = new THREE.Sprite(spriteMaterial_3);
-    sprite_3.scale.set(10, 10, 1);
-    sprite_3.position.x = -300;
-    sprite_3.position.y = -250;
-    sprite_3.position.z = 10;
-
-    scene.add(sprite_3);
-
-    var spriteMaterial_4 = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
-      color: 0xffffff,
-      fog: true
-    });
-
-    var sprite_4 = new THREE.Sprite(spriteMaterial_4);
-    sprite_4.scale.set(6, 6, 1);
-    sprite_4.position.x = -300;
-    sprite_4.position.y = -230;
-    sprite_4.position.z = -300;
-
-    scene.add(sprite_4);
-
-    /* The End */
+    function createSprite() {
+      let spriteMaterial = new THREE.SpriteMaterial({
+        map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite1.png'),
+        color: 0xffffff,
+        fog: true
+      });
+      let sprite = new THREE.Sprite(spriteMaterial);
+      sprite.scale.set(10, 10, 1);
+      sprite.position.x = 300 * Math.random();
+      sprite.position.y = 300 * Math.random();
+      sprite.position.z = 300 * Math.random();
+      return sprite;
+    }
+    for (let i = 0; i < 5; i++) {
+      let sprite = createSprite();
+      console.log(sprite.id);
+      scores[sprite.id] = false;
+      scene.add(sprite);
+    }
 
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -309,9 +254,10 @@ function addEvent() {
       raycaster.setFromCamera(mouse, camera);
       var intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
+        console.log(intersects);
         if (intersects[0].object.id > 3) {
           intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
-          intersects[0].object.scale.set(50, 50, 1);
+          intersects[0].object.scale.set(10, 10, 1);
           if (scores[intersects[0].object.id] === false) {
             scores[intersects[0].object.id] = true;
             vm.foundCount += 1;

@@ -3,8 +3,6 @@ import Router from 'vue-router';
 import entry from '@/components/entry';
 import game from '@/components/game';
 import outDate from '@/components/outdate';
-import invite from '@/components/invite';
-import getMoney from '@/components/getMoney';
 import 'normalize.css';
 
 Vue.use(Router);
@@ -30,20 +28,6 @@ export default new Router({
       name: 'outDate',
       components: {
         window: outDate
-      }
-    },
-    {
-      path: '/invite',
-      name: 'invite',
-      components: {
-        window: invite
-      }
-    },
-    {
-      path: '/getMoney',
-      name: 'getMoney',
-      components: {
-        window: getMoney
       }
     }
   ]

@@ -22,19 +22,10 @@
       checkDate() {
         let compare = Date.now() - new Date(2017, 4, 3);
         this.toggle = compare < 0 ? '/game' : '/outDate';
-      },
-      checkStorage() {
-        let played = localStorage.getItem('played');
-        if (played) {
-          this.toggle = '/invite';
-        }
       }
     },
     created() {
       this.checkDate();
-      if (this.toggle !== '/outDate') {
-        this.checkStorage();
-      }
     }
   };
 </script>

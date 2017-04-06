@@ -3,8 +3,8 @@
     <div v-if="!over" id="container"></div>
     <div class="info">
       <div v-if="!over">剩余时间: {{time}}s</div>
-      <div v-show="over">
-        <router-link to="/getMoney">恭喜你找到{{foundCount}}个拼图，领取牛币</router-link>
+      <div v-if="over">
+        恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币
       </div>
     </div>
   </div>
@@ -16,9 +16,21 @@
     name: 'game',
     data() {
       return {
-        time: 600,
+        time: 60,
         over: false,
         foundCount: 0
+      }
+    },
+    computed: {
+      money() {
+        switch (true) {
+          case this.foundCount === 1:
+            return 1;
+          case this.foundCount <= 5:
+            return 10;
+          default:
+            return 20;
+        }
       }
     },
     created() {
@@ -45,26 +57,26 @@
       this.addEvent();
     }
   }
-  var camera, scene, renderer;
+  let camera, scene, renderer;
 
-  var isUserInteracting = false,
+  let isUserInteracting = false,
     onPointerDownPointerX = 0, onPointerDownPointerY = 0,
     lon = 0, onPointerDownLon = 0,
     lat = 0, onPointerDownLat = 0,
     phi = 0, theta = 0,
     startDistance = 0;
 
-  var raycaster = new THREE.Raycaster();
-  var mouse = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
 
-  var scores = [];
-  var foundAll = function () {
+  const scores = [];
+  const foundAll = function () {
     return !scores.includes(false);
   };
 
   function init() {
 
-    var container, mesh;
+    let container, mesh;
 
     container = document.getElementById('container');
 
@@ -73,10 +85,10 @@
 
     scene = new THREE.Scene();
 
-    var geometry = new THREE.SphereGeometry(500, 60, 40);
+    const geometry = new THREE.SphereGeometry(500, 60, 40);
     geometry.scale(-1, 1, 1);
 
-    var material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshBasicMaterial({
       map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/2294472375_24a3b8ef46_o.jpg')
     });
 
@@ -92,15 +104,15 @@
         fog: true
       });
       let sprite = new THREE.Sprite(spriteMaterial);
-      sprite.scale.set(10, 10, 1);
-      sprite.position.x = 300 * Math.random();
-      sprite.position.y = 300 * Math.random();
-      sprite.position.z = 300 * Math.random();
+      sprite.scale.set(20, 20, 1);
+      sprite.position.x = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
+      sprite.position.y = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
+      sprite.position.z = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
       return sprite;
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
       let sprite = createSprite();
-      console.log(sprite.id);
+      console.log(sprite.position);
       scores[sprite.id] = false;
       scene.add(sprite);
     }
@@ -111,33 +123,33 @@
     container.appendChild(renderer.domElement);
   }
 function addEvent() {
-  document.addEventListener('mousedown', onDocumentMouseDown(this), false);
-  document.addEventListener('mousemove', onDocumentMouseMove, false);
-  document.addEventListener('mouseup', onDocumentMouseUp, false);
-  document.addEventListener('wheel', onDocumentMouseWheel, false);
+  container.addEventListener('mousedown', onDocumentMouseDown(this), false);
+  container.addEventListener('mousemove', onDocumentMouseMove, false);
+  container.addEventListener('mouseup', onDocumentMouseUp, false);
+  container.addEventListener('wheel', onDocumentMouseWheel, false);
 
   //
 
-  document.addEventListener('dragover', function (event) {
+  container.addEventListener('dragover', function (event) {
 
     event.preventDefault();
     event.dataTransfer.dropEffect = 'copy';
 
   }, false);
 
-  document.addEventListener('dragenter', function (event) {
+  container.addEventListener('dragenter', function (event) {
 
     document.body.style.opacity = 0.5;
 
   }, false);
 
-  document.addEventListener('dragleave', function (event) {
+  container.addEventListener('dragleave', function (event) {
 
     document.body.style.opacity = 1;
 
   }, false);
 
-  document.addEventListener('drop', function (event) {
+  container.addEventListener('drop', function (event) {
 
     event.preventDefault();
 
@@ -156,11 +168,11 @@ function addEvent() {
 
   //
 
-  window.addEventListener('resize', onWindowResize, false);
+  container.addEventListener('resize', onWindowResize, false);
   /* bind touch events */
-  window.addEventListener('touchstart', onTouchstart(this), false);
-  window.addEventListener('touchmove', onTouchmove, false);
-  window.addEventListener('touchend', onTouchend, false);
+  container.addEventListener('touchstart', onTouchstart(this), false);
+  container.addEventListener('touchmove', onTouchmove, false);
+  container.addEventListener('touchend', onTouchend, false);
     /* The End */
   }
   /* touch event handlers */
@@ -179,19 +191,17 @@ function addEvent() {
       mouse.x = (event.changedTouches[0].pageX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.changedTouches[0].pageY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
-      var intersects = raycaster.intersectObjects(scene.children);
+      const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
         if (intersects[0].object.id > 3) {
           intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
-          intersects[0].object.scale.set(50, 50, 1);
+          intersects[0].object.scale.set(20, 20, 1);
           if ( scores[intersects[0].object.id] === false) {
             scores[intersects[0].object.id] = true;
             vm.foundCount += 1;
           }
-          console.log(scores,vm.foundCount);
           if (foundAll()) {
-            console.log('恭喜你已找出所有拼图');
-            alert('恭喜你已找出所有拼图，请领取礼物');
+            vm.over = true;
           }
         }
       }
@@ -206,7 +216,7 @@ function addEvent() {
         lat = (event.changedTouches[0].pageY - onPointerDownPointerY) * 0.1 + onPointerDownLat;
       }
     } else {// 双点触控
-      var deltaX = 15,
+      const deltaX = 15,
         currentDistance = Math.pow(event.changedTouches[1].pageX - event.changedTouches[0].pageX, 2) + Math.pow(event.changedTouches[1].pageY - event.changedTouches[0].pageY, 2);
       if (currentDistance < startDistance) {
         camera.fov += deltaX * 0.05;
@@ -252,20 +262,17 @@ function addEvent() {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
-      var intersects = raycaster.intersectObjects(scene.children);
+      const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
-        console.log(intersects);
         if (intersects[0].object.id > 3) {
           intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
-          intersects[0].object.scale.set(10, 10, 1);
+          intersects[0].object.scale.set(20, 20, 1);
           if (scores[intersects[0].object.id] === false) {
             scores[intersects[0].object.id] = true;
             vm.foundCount += 1;
           }
-          console.log(scores,vm.foundCount);
           if (foundAll()) {
-            console.log('恭喜你已找出所有拼图');
-            alert('恭喜你已找出所有拼图，请领取礼物');
+           vm.over = true;
           }
         }
       }
@@ -305,12 +312,6 @@ function addEvent() {
   }
 
   function update() {
-
-    if ( isUserInteracting === false ) {
-
-      lon += 0.1;
-
-    }
 
     lat = Math.max( - 85, Math.min( 85, lat ) );
     phi = THREE.Math.degToRad( 90 - lat );

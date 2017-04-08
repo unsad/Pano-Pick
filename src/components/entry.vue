@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <h1>翻转羊城八景</h1>
-      <ol>
+  <div class="root">
+    <div class="content">
+      <h1>翻转羊城八景</h1>
+      <ul>
         <li>时间</li>
         <li>寻找</li>
         <li>本活动</li>
         <li>。。。</li>
-      </ol>
-  <router-link :to="toggle">进入游戏</router-link>
+      </ul>
+      <el-button type="primary">
+        <router-link :to="toggle">进入游戏</router-link>
+      </el-button>
+    </div>
   </div>
   </template>
 <script>
@@ -30,5 +34,16 @@
   };
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.root
+  height: 100%
+  text-align: center
+  display: flex
+  align-items: center
+  justify-content: center
+a
+  text-decoration: none
+ul
+  list-style-type: none
+  padding: 0
 
 </style>

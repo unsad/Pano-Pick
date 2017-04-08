@@ -1,11 +1,34 @@
 <template>
   <div class="root">
-    <div v-if="!over" id="container"></div>
+    <template v-if="!over">
+    <div  id="container">
+
+    </div>
     <div class="info">
-      <div v-if="!over">剩余时间: {{time}}s</div>
-      <div v-if="over">
-        恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币
-      </div>
+      <el-card class="box-card">
+        <div>剩余时间: {{time}}s</div>
+        <div>任务进度: {{foundCount}}/8</div>
+      </el-card>
+    </div>
+    </template>
+    <div class="overInfo" v-else>
+        <h3>恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币</h3>
+      <el-form :model="numberValidateForm" label-position="top" ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item
+          label="手机号码"
+          prop="phone"
+          :rules="[
+      { required: true, message: '号码不能为空'},
+      { type: 'number', message: '号码必须为数字值'}
+    ]"
+        >
+          <el-input type="phone" v-model.number="numberValidateForm.phone" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
+          <el-button @click="resetForm('numberValidateForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -16,9 +39,12 @@
     name: 'game',
     data() {
       return {
-        time: 60,
+        time: 10,
         over: false,
-        foundCount: 0
+        foundCount: 0,
+        numberValidateForm: {
+          phone: ''
+        }
       }
     },
     computed: {
@@ -49,7 +75,20 @@
       },
       init,
       animate,
-      addEvent
+      addEvent,
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
     },
     mounted() {
       this.init();
@@ -112,7 +151,6 @@
     }
     for (let i = 0; i < 8; i++) {
       let sprite = createSprite();
-      console.log(sprite.position);
       scores[sprite.id] = false;
       scene.add(sprite);
     }
@@ -335,9 +373,17 @@ function addEvent() {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .root
     position: relative
+    height: 100%
     .info
       position: absolute
       z-index: 10
       top: 10px
       left: 10px
+    .overInfo
+      text-align: center
+      position: absolute
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+
 </style>

@@ -13,7 +13,7 @@
     </div>
     </template>
     <div class="overInfo" v-else>
-        <h3>恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币</h3>
+        <h3>恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币,打败了{{people}}的玩家</h3>
       <el-form :model="numberValidateForm" label-position="top" ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
         <el-form-item
           label="手机号码"
@@ -40,7 +40,7 @@
     name: 'game',
     data() {
       return {
-        time: 10,
+        time: 20,
         ready: 5,
         foundCount: 0,
         numberValidateForm: {
@@ -51,6 +51,8 @@
     computed: {
       money() {
         switch (true) {
+          case this.foundCount === 0:
+            return 0;
           case this.foundCount === 1:
             return 1;
           case this.foundCount <= 5:
@@ -58,10 +60,12 @@
           default:
             return 20;
         }
+      },
+      people() {
+        return `${Math.floor(this.foundCount / 8 * 100)}%`;
       }
     },
     created() {
-      localStorage.setItem('played', 'true');
       this.curReady();
     },
     methods: {

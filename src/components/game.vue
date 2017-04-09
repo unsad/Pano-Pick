@@ -1,9 +1,10 @@
 <template>
   <div class="root">
-    <template v-if="!over">
+    <template v-if="time">
     <div  id="container">
 
     </div>
+      <div class="ready" v-if="ready"><span>{{ready}}</span></div>
     <div class="info">
       <el-card class="box-card">
         <div>剩余时间: {{time}}s</div>
@@ -40,7 +41,7 @@
     data() {
       return {
         time: 10,
-        over: false,
+        ready: 5,
         foundCount: 0,
         numberValidateForm: {
           phone: ''
@@ -61,7 +62,7 @@
     },
     created() {
       localStorage.setItem('played', 'true');
-      this.curTime();
+      this.curReady();
     },
     methods: {
       curTime() {
@@ -69,7 +70,15 @@
           this.time -= 1;
           if (this.time === 0) {
             clearInterval(listenTime);
-            this.over = true;
+          }
+        }, 1000);
+      },
+      curReady() {
+        let listenReady = setInterval(() => {
+          this.ready -= 1;
+          if (this.ready === 0) {
+            clearInterval(listenReady);
+            this.curTime();
           }
         }, 1000);
       },
@@ -385,5 +394,17 @@ function addEvent() {
       left: 50%
       top: 50%
       transform: translate(-50%, -50%)
-
+    .ready
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      background-color: rgba(0, 0, 0, 0.6)
+      display:flex
+      justify-content: center
+      align-items: center
+      span
+        color: white
+        font-size: 100px
 </style>

@@ -222,6 +222,9 @@ function addEvent() {
   container.addEventListener('resize', onWindowResize, false);
   /* bind touch events */
   container.addEventListener('touchstart', onTouchstart(this), false);
+  document.addEventListener('touchmove', (event) => {
+    event.preventDefault();
+  }, false);
   container.addEventListener('touchmove', onTouchmove, false);
   container.addEventListener('touchend', onTouchend, false);
     /* The End */

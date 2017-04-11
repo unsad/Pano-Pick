@@ -65,9 +65,6 @@
         return `${Math.floor(this.foundCount / 8 * 100)}%`;
       }
     },
-    created() {
-      this.curReady();
-    },
     methods: {
       curTime() {
         let listenTime = setInterval(() => {
@@ -110,6 +107,7 @@
       this.init();
       this.animate();
       this.addEvent();
+      this.curReady();
     }
   }
   let camera, scene, renderer;
@@ -144,12 +142,13 @@
     geometry.scale(-1, 1, 1);
 
     const material = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/2294472375_24a3b8ef46_o.jpg')
+      map: new THREE.TextureLoader().load(require('../assets/shanghai.jpg'))
     });
 
     mesh = new THREE.Mesh(geometry, material);
 
     scene.add(mesh);
+    console.log('贴图完毕');
     /* add the spirits here */
 
     function createSprite() {

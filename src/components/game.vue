@@ -92,7 +92,10 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$http.post('/url', {        //  这里配置后台处理url
+              phone: this.numberValidateForm.phone,
+              money: this.money
+            }).then((res) => alert('领取成功'), (err) => alert('领取失败'));
           } else {
             console.log('error submit!!');
             return false;

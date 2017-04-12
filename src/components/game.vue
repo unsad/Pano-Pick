@@ -258,14 +258,13 @@ function addEvent() {
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
         if (intersects[0].object.id > 3) {
-          intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
+          intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if ( scores[intersects[0].object.id] === false) {
-            let t = 10;
+            let t = 20;
             (function timego() {
               intersects[0].object.position.y += 1;
               t--;
-              console.log(t);
               let a = requestAnimationFrame(timego);
               if (t === 0) {
                 intersects[0].object.visible = false;
@@ -340,14 +339,24 @@ function addEvent() {
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
         if (intersects[0].object.id > 3) {
-          intersects[0].object.material.map = new THREE.TextureLoader().load('http://oe9g187nt.bkt.clouddn.com/img/sprite0.png');
+          intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if (scores[intersects[0].object.id] === false) {
+            let t = 20;
+            (function timego() {
+              intersects[0].object.position.y += 1;
+              t--;
+              let a = requestAnimationFrame(timego);
+              if (t === 0) {
+                intersects[0].object.visible = false;
+                cancelAnimationFrame(a);
+              }
+            })();
             scores[intersects[0].object.id] = true;
             vm.foundCount += 1;
           }
           if (foundAll()) {
-           vm.over = true;
+            vm.over = true;
           }
         }
       }

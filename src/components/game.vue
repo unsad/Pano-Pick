@@ -35,6 +35,8 @@
 </template>
 
 <script>
+  import img_1 from '../assets/shanghai-min.png';
+  import img_2 from '../assets/car.png';
   console.log('执行js');
   window.onload = function() {
     console.log('资源加载完毕')
@@ -127,6 +129,8 @@
     lat = 0, onPointerDownLat = 0,
     phi = 0, theta = 0,
     startDistance = 0;
+  const materSky = new THREE.TextureLoader().load(img_1);
+  const materCar = new THREE.TextureLoader().load(img_2);
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -151,12 +155,12 @@
     geometry.scale(-1, 1, 1);
 
     const material = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load(require('../assets/shanghai.png'))
+      map: materSky
     });
 // 新建LOGO
     mesh = new THREE.Mesh(geometry, material);
     const logoMaterial = new THREE.SpriteMaterial({
-      map: new THREE.TextureLoader().load(require('../assets/shanghai.png')),
+      map: materSky,
       color: 0xffffff,
       fog: true
     });
@@ -173,7 +177,7 @@
 
     function createSprite() {
       let spriteMaterial = new THREE.SpriteMaterial({
-        map: new THREE.TextureLoader().load(require('../assets/car.png')),
+        map: materCar,
         color: 0xffffff,
         fog: true
       });

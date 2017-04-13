@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <template v-if="time">
+    <template v-if="!over">
     <div  id="container">
 
     </div>
@@ -44,9 +44,10 @@
     name: 'game',
     data() {
       return {
-        time: 20,
+        time: 200,
         ready: 5,
         foundCount: 0,
+        over: false,
         numberValidateForm: {
           phone: ''
         }
@@ -150,11 +151,22 @@
     geometry.scale(-1, 1, 1);
 
     const material = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load(require('../assets/shanghai.jpg'))
+      map: new THREE.TextureLoader().load(require('../assets/shanghai.png'))
     });
-
+// 新建LOGO
     mesh = new THREE.Mesh(geometry, material);
-
+    const logoMaterial = new THREE.SpriteMaterial({
+      map: new THREE.TextureLoader().load(require('../assets/shanghai.png')),
+      color: 0xffffff,
+      fog: true
+    });
+    let logo = new THREE.Sprite(logoMaterial);
+    logo.scale.set(200, 200, 1);
+    logo.position.y = 1000;
+    let logoBottom = logo.clone();
+    logoBottom.position.y = -1000;
+    scene.add(logo);
+    scene.add(logoBottom);
     scene.add(mesh);
     console.log('贴图完毕');
     /* add the spirits here */
@@ -237,6 +249,7 @@ function addEvent() {
   }, false);
   container.addEventListener('touchmove', onTouchmove, false);
   container.addEventListener('touchend', onTouchend, false);
+  window.addEventListener('deviceorientation', onDeviceOrientation, false);
     /* The End */
   }
   /* touch event handlers */
@@ -257,7 +270,7 @@ function addEvent() {
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
-        if (intersects[0].object.id > 3) {
+        if (intersects[0].object.id > 5) {
           intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if ( scores[intersects[0].object.id] === false) {
@@ -272,6 +285,7 @@ function addEvent() {
               }
             })();
             scores[intersects[0].object.id] = true;
+            console.log(scores);
             vm.foundCount += 1;
           }
           if (foundAll()) {
@@ -308,6 +322,21 @@ function addEvent() {
     isUserInteracting = false;
 
   }
+let alpha, beta, gamma, changeA, changeB;
+
+  function onDeviceOrientation(event) {
+    if (alpha) {
+      changeA = event.alpha + event.gamma - alpha - gamma;
+      changeB = event.beta  - beta ;
+      lon = lon + changeA;
+      lat = lat + changeB;
+    }
+    alpha = event.alpha;
+    beta = event.beta;
+    gamma = event.gamma;
+    console.log(changeA, changeB);
+
+  }
   /* The End */
 
   function onWindowResize() {
@@ -338,7 +367,7 @@ function addEvent() {
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
-        if (intersects[0].object.id > 3) {
+        if (intersects[0].object.id > 5) {
           intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if (scores[intersects[0].object.id] === false) {

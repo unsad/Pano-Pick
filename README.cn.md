@@ -17,11 +17,11 @@
 
 ## 预览
 
-[demo](sweetalkto.me/three/dist/index.html)
+[demo](http://sweetalkto.me/three/dist/index.html)
 
 ## 安装
 
-1. `git clone https://github.com/unsad/three.git`
+1. `https://github.com/unsad/Pano-Pick.git`
 2. `npm install` or `yarn`
 
 ## 使用

@@ -17,11 +17,11 @@ An HTML5 panoramic game based on three.js && Vue2. [中文](./README.cn.md)
 
 ## Preview
 
-[demo](sweetalkto.me/three/dist/index.html)
+[demo](http://sweetalkto.me/three/dist/index.html)
 
 ## Install
 
-1. `git clone https://github.com/unsad/three.git`
+1. `https://github.com/unsad/Pano-Pick.git`
 2. `npm install` or `yarn`
 
 ## Usage

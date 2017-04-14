@@ -1,6 +1,6 @@
 # Pano-Pick
 
-An HTML5 panoramic game based on three.js && Vue2. [中文](./README.cn.md)
+一个基于three.js和Vue2的全景游戏。 [English](./README.md)
 
 [![NPM version][npm-image]][npm-url]
 [![node version][node-image]][node-url]
@@ -15,34 +15,34 @@ An HTML5 panoramic game based on three.js && Vue2. [中文](./README.cn.md)
 [download-url]: https://npmjs.org/package/package.json
 [license-image]: https://img.shields.io/npm/l/package.json.svg
 
-## Preview
+## 预览
 
 [demo](sweetalkto.me/three/dist/index.html)
 
-## Install
+## 安装
 
 1. `git clone https://github.com/unsad/three.git`
 2. `npm install` or `yarn`
 
-## Usage
+## 使用
 
-### Development:
+### 开发环境：
 
 `npm run dev // serve with hot reload at localhost: 8080`
 
-### Production:
+### 生产环境：
 
-`npm run build` and then find it in `/dist`
+`npm run build` 打包在dist目录
 
-## Features
+## 特性
 
-* Write css with preprocessors:[stylus](https://github.com/stylus/stylus)
-* Front-end routing with [vue-router](https://github.com/vuejs/vue-router)
-* Network requests with [axios](https://github.com/mzabriskie/axios)
-* Project modularization and deployment are based on [vue-cli](https://github.com/vuejs/vue-cli)
-* Use [element](https://github.com/ElemeFE/element) to build User Interface
-* Gravity sensor is based on [deviceorientation](https://developer.mozilla.org/zh-CN/docs/Web/API/Detecting_device_orientation)
+* 通过[stylus](https://github.com/stylus/stylus)预处理css
+* 前端路由采用[vue-router](https://github.com/vuejs/vue-router)
+* 网络请求采用[axios](https://github.com/mzabriskie/axios)
+* 项目模块化和部署基于[vue-cli](https://github.com/vuejs/vue-cli)
+* 用户界面由[element](https://github.com/ElemeFE/element)搭建
+* 重力感应基于HTML5的新增事件接口[deviceorientation](https://developer.mozilla.org/zh-CN/docs/Web/API/Detecting_device_orientation)
 
-## Lisence
+## 证书
 
 [MIT](https://opensource.org/licenses/MIT)

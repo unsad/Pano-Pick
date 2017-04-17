@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import entry from '@/components/entry';
 import game from '@/components/game';
 import outDate from '@/components/outdate';
+import get from '@/components/get';
 import 'normalize.css';
 
 Vue.use(Router);
@@ -28,6 +29,13 @@ export default new Router({
       name: 'outDate',
       components: {
         window: outDate
+      }
+    },
+    {
+      path: '/get',
+      name: 'get',
+      components: {
+        window: get
       }
     }
   ]

@@ -1,17 +1,8 @@
 <template>
   <div class="root">
-    <div class="content">
-      <h1>翻转羊城八景</h1>
-      <ul>
-        <li>时间</li>
-        <li>寻找</li>
-        <li>本活动</li>
-        <li>。。。</li>
-      </ul>
-      <el-button type="primary">
+      <span>
         <router-link :to="toggle">进入游戏</router-link>
-      </el-button>
-    </div>
+      </span>
   </div>
   </template>
 <script>
@@ -38,12 +29,21 @@
   height: 100%
   text-align: center
   display: flex
-  align-items: center
+  align-items: flex-end
   justify-content: center
-a
-  text-decoration: none
-ul
-  list-style-type: none
-  padding: 0
+  background: url('../assets/interface@2x.jpg') center/100%
+  @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+    background: url('../assets/interface@3x.jpg') center/100%
+   span
+     font-size: 15px
+     letter-spacing: 1.5px
+     width: 137px
+     margin-bottom: 62%
+     background: url('../assets/button1@2x.png') center/100% no-repeat
+     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+       background: url('../assets/button1@3x.png') center/100% no-repeat
+     height: 36px
+     line-height: 36px
+
 
 </style>

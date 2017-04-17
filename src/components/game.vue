@@ -1,35 +1,23 @@
 <template>
   <div class="root">
-    <template v-if="!over">
-    <div  id="container">
+    <template>
+    <div id="container" :class="{'blur': over}">
 
     </div>
       <div class="ready" v-if="ready"><span>{{ready}}</span></div>
-    <div class="info">
+    <div class="info" v-if="!over">
       <el-card class="box-card">
         <div>剩余时间: {{time}}s</div>
         <div>任务进度: {{foundCount}}/8</div>
       </el-card>
     </div>
     </template>
-    <div class="overInfo" v-else>
-        <h3>恭喜你找到{{foundCount}}个拼图，获得{{money}}牛币,打败了{{people}}的玩家</h3>
-      <el-form :model="numberValidateForm" label-position="top" ref="numberValidateForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item
-          label="手机号码"
-          prop="phone"
-          :rules="[
-      { required: true, message: '号码不能为空'},
-      { type: 'number', message: '号码必须为数字值'}
-    ]"
-        >
-          <el-input type="phone" v-model.number="numberValidateForm.phone" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('numberValidateForm')">提交</el-button>
-          <el-button @click="resetForm('numberValidateForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
+    <div class="overInfo" v-if="over">
+      <div class="item">
+        <p>恭喜你,找到{{foundCount}}个欧蓝德汽车,<br>
+        打败了{{people}}人。</p>
+        <router-link to="/get" class="get">领取牛币</router-link>
+        </div>
     </div>
   </div>
 </template>
@@ -46,13 +34,10 @@
     name: 'game',
     data() {
       return {
-        time: 200,
+        time: 5,
         ready: 5,
         foundCount: 0,
-        over: false,
-        numberValidateForm: {
-          phone: ''
-        }
+        over: false
       }
     },
     computed: {
@@ -78,6 +63,7 @@
           this.time -= 1;
           if (this.time === 0) {
             clearInterval(listenTime);
+            this.over = true;
           }
         }, 1000);
       },
@@ -92,23 +78,7 @@
       },
       init,
       animate,
-      addEvent,
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$http.post('/url', {        //  这里配置后台处理url
-              phone: this.numberValidateForm.phone,
-              money: this.money
-            }).then((res) => alert('领取成功'), (err) => alert('领取失败'));
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+      addEvent
     },
     mounted() {
       console.log('挂载完毕');
@@ -459,22 +429,46 @@ let alpha, beta, gamma, changeA, changeB;
       top: 10px
       left: 10px
     .overInfo
+      display: flex
       text-align: center
       position: absolute
-      left: 50%
-      top: 50%
-      transform: translate(-50%, -50%)
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background: rgba(0, 0, 0, 0.4)
+      .item
+        margin: auto
+        text-align: center
+        p
+          line-height: 25px
+          margin-bottom: 35px
+          letter-spacing: 2.5px
+          font-size: 16px
+          color: #ffdc54
+        .get
+          display: inline-block
+          width: 137px
+          background: url('../assets/button1@2x.png') center/100% no-repeat
+          @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+            background: url('../assets/button1@3x.png') center/100% no-repeat
+          height: 36px
+          line-height: 36px
+          color: #000
     .ready
       position: absolute
       top: 0
       left: 0
       bottom: 0
       right: 0
-      background-color: rgba(0, 0, 0, 0.6)
+      background: rgba(0, 0, 0, 0.6)
       display:flex
       justify-content: center
       align-items: center
       span
         color: white
         font-size: 100px
+  .blur
+    filter: blur(3px)
+
 </style>

@@ -15,7 +15,7 @@
     <div class="overInfo" v-if="over">
       <div class="item">
         <p>恭喜你,找到{{foundCount}}个欧蓝德汽车,<br>
-        打败了{{people}}人。</p>
+        打败了{{people}}的人。</p>
         <router-link to="/get" class="get">领取牛币</router-link>
         </div>
     </div>
@@ -34,7 +34,7 @@
     name: 'game',
     data() {
       return {
-        time: 5,
+        time: 20,
         ready: 5,
         foundCount: 0,
         over: false

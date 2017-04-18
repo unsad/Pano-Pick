@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import img_1 from './img/shanghai-min.png';
+  import img_1 from './img/shanghai-min.jpg';
   import img_2 from './img/car.png';
   console.log('执行js');
   window.onload = function() {

@@ -17,9 +17,9 @@ div
   &:after
     z-index: -2
     content: ''
-    background: url('../assets/interface@2x.jpg') center/100%
+    background: url(./img/interface@2x.jpg) center/100%
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-      background: url('../assets/interface@3x.jpg') center/100%
+      background: url(./img/interface@3x.jpg) center/100%
     position: absolute
     top: 0
     right: 0

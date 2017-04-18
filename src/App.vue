@@ -25,8 +25,8 @@ html
 
 @font-face
   font-family: 'fzzhunyuan-m02regular'
-  src: url('./assets/font/_gbk-webfont.woff2') format('woff2'),
-       url('./assets/font/_gbk-webfont.woff') format('woff')
+  src: url(./assets/font/_gbk-webfont.woff2) format('woff2'),
+       url(./assets/font/_gbk-webfont.woff) format('woff')
   font-weight: normal
   font-style: normal
 

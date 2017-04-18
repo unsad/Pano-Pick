@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import img_1 from '../assets/shanghai-min.png';
-  import img_2 from '../assets/car.png';
+  import img_1 from './img/shanghai-min.png';
+  import img_2 from './img/car.png';
   console.log('执行js');
   window.onload = function() {
     console.log('资源加载完毕')
@@ -245,7 +245,7 @@ function addEvent() {
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
         if (intersects[0].object.id > 5) {
-          intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
+          intersects[0].object.material.map = new THREE.TextureLoader().load(require('./img/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if ( scores[intersects[0].object.id] === false) {
             let t = 20;
@@ -342,7 +342,7 @@ let alpha, beta, gamma, changeA, changeB;
       const intersects = raycaster.intersectObjects(scene.children);
       if (intersects.length > 0) {
         if (intersects[0].object.id > 5) {
-          intersects[0].object.material.map = new THREE.TextureLoader().load(require('../assets/one.png'));
+          intersects[0].object.material.map = new THREE.TextureLoader().load(require('./img/one.png'));
           intersects[0].object.scale.set(20, 20, 1);
           if (scores[intersects[0].object.id] === false) {
             let t = 20;
@@ -449,9 +449,9 @@ let alpha, beta, gamma, changeA, changeB;
         .get
           display: inline-block
           width: 137px
-          background: url('../assets/button1@2x.png') center/100% no-repeat
+          background: url('./img/button1@2x.png') center/100% no-repeat
           @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-            background: url('../assets/button1@3x.png') center/100% no-repeat
+            background: url('./img/button1@3x.png') center/100% no-repeat
           height: 36px
           line-height: 36px
           color: #000

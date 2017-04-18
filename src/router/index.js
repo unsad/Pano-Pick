@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import entry from '@/components/entry';
-import game from '@/components/game';
-import outDate from '@/components/outdate';
-import get from '@/components/get';
+import entry from '@/components/entry/entry';
+import game from '@/components/game/game';
+import outDate from '@/components/outdate/outdate';
+import get from '@/components/get/get';
 import 'normalize.css';
 
 Vue.use(Router);

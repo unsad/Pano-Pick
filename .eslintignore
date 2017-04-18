@@ -1,4 +1,4 @@
 build/*.js
 config/*.js
-src/components/game.vue
+src/components/game/game.vue
 src/assets/

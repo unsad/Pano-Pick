@@ -18,9 +18,9 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .root
   height: 100%
-  background: url('../assets/interface-2@2x.jpg') center/100%
+  background: url(./img/interface-2@2x.jpg) center/100%
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-   background: url('../assets/interface-2@3x.jpg') center/100%
+   background: url(./img/interface-2@3x.jpg) center/100%
   display: flex
   text-align: center
   flex-direction: column
@@ -30,14 +30,14 @@
     width: 16px
     height: 25px
     line-height: 25px
-    background: url('../assets/triangle@2x.png') center/100%  no-repeat
+    background: url(./img/triangle@2x.png) center/100%  no-repeat
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-      background: url('../assets/triangle@3x.png') center/100% no-repeat
+      background: url(./img/triangle@3x.png) center/100% no-repeat
   span:nth-child(odd)
     width: 186px
     height: 36px
     line-height: 36px
-    background: url('../assets/button2@2x.png') center/100%  no-repeat
+    background: url(./img/button2@2x.png) center/100%  no-repeat
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-      background: url('../assets/button2@3x.png') center/100% no-repeat
+      background: url(./img/button2@3x.png) center/100% no-repeat
 </style>

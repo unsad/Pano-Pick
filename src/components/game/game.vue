@@ -25,10 +25,6 @@
 <script>
   import img_1 from './img/shanghai-min.jpg';
   import img_2 from './img/car.png';
-  console.log('执行js');
-  window.onload = function() {
-    console.log('资源加载完毕')
-  };
   const THREE = require('three');
   export default {
     name: 'game',
@@ -81,14 +77,10 @@
       addEvent
     },
     mounted() {
-      console.log('挂载完毕');
       this.init();
       this.animate();
       this.addEvent();
       this.curReady();
-    },
-    created() {
-      console.log('创建完毕');
     }
   }
   let camera, scene, renderer;
@@ -142,7 +134,6 @@
     scene.add(logo);
     scene.add(logoBottom);
     scene.add(mesh);
-    console.log('贴图完毕');
     /* add the spirits here */
 
     function createSprite() {
@@ -259,7 +250,6 @@ function addEvent() {
               }
             })();
             scores[intersects[0].object.id] = true;
-            console.log(scores);
             vm.foundCount += 1;
           }
           if (foundAll()) {
@@ -308,8 +298,6 @@ let alpha, beta, gamma, changeA, changeB;
     alpha = event.alpha;
     beta = event.beta;
     gamma = event.gamma;
-    console.log(changeA, changeB);
-
   }
   /* The End */
 

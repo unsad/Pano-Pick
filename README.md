@@ -17,7 +17,7 @@ An HTML5 panoramic game based on three.js && Vue2. [中文](./README.cn.md)
 
 ## Preview
 
-[demo](http://sweetalkto.me/three/dist/index.html)
+使用移动端打开[demo](http://sweetalkto.me/Pano-Pick/dist/index.html)
 
 ## Install
 
@@ -37,6 +37,7 @@ An HTML5 panoramic game based on three.js && Vue2. [中文](./README.cn.md)
 ## Features
 
 * Write css with preprocessors:[stylus](https://github.com/stylus/stylus)
+* process the static resource with reload animation
 * Front-end routing with [vue-router](https://github.com/vuejs/vue-router)
 * Network requests with [axios](https://github.com/mzabriskie/axios)
 * Project modularization and deployment are based on [vue-cli](https://github.com/vuejs/vue-cli)

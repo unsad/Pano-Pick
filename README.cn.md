@@ -17,7 +17,7 @@
 
 ## 预览
 
-[demo](http://sweetalkto.me/three/dist/index.html)
+open [demo](http://sweetalkto.me/Pano-Pick/dist/index.html) with a phone
 
 ## 安装
 
@@ -37,6 +37,7 @@
 ## 特性
 
 * 通过[stylus](https://github.com/stylus/stylus)预处理css
+* 图片资源使用预加载动画效果处理
 * 前端路由采用[vue-router](https://github.com/vuejs/vue-router)
 * 网络请求采用[axios](https://github.com/mzabriskie/axios)
 * 项目模块化和部署基于[vue-cli](https://github.com/vuejs/vue-cli)

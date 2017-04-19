@@ -25,7 +25,7 @@ html
 
 @font-face
   font-family: 'fzzhunyuan-m02sregular'
-  src: url(./assets/font/_-webfont.ttf) format('truetype')
+  src: url(/Pano-Pick/dist/static/fonts/_-webfont.ttf) format('truetype')
   font-weight: normal
   font-style: normal
 </style>

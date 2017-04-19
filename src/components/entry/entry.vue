@@ -23,6 +23,7 @@
       this.checkDate();
     }
   };
+
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .root
@@ -31,19 +32,17 @@
   display: flex
   align-items: flex-end
   justify-content: center
-  background: url(./img/interface@2x.jpg) center/100%
+  background: url(./img/interface@2x.jpg) center/cover
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-    background: url(./img/interface@3x.jpg) center/100%
+    background: url(./img/interface@3x.jpg) center/cover
    span
      font-size: 15px
      letter-spacing: 1.5px
      width: 137px
-     margin-bottom: 240px
+     margin-bottom: 30vh
      background: url(./img/button1@2x.png) center/100% no-repeat
      @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
        background: url(./img/button1@3x.png) center/100% no-repeat
      height: 36px
      line-height: 36px
-
-
 </style>

@@ -26,6 +26,7 @@
   import img_1 from './img/shanghai-min.jpg';
   import img_2 from './img/car.png';
   const THREE = require('three');
+
   export default {
     name: 'game',
     data() {

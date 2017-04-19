@@ -38,7 +38,7 @@
      font-size: 15px
      letter-spacing: 1.5px
      width: 137px
-     margin-bottom: 62%
+     margin-bottom: 240px
      background: url(./img/button1@2x.png) center/100% no-repeat
      @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
        background: url(./img/button1@3x.png) center/100% no-repeat

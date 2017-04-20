@@ -15,7 +15,7 @@
   </div>
   </template>
 <script>
-  import img1 from '../game/img/shanghai-min.jpg';
+  import img1 from '../../assets/shanghai-min.jpg';
   import img2 from './img/interface@2x.jpg';
 
   export default {
@@ -41,7 +41,7 @@
 
   function loading(imgArr, vm) {
     for (let img of imgArr) {
-      let image = new Image();
+      let image = document.createElement('img');
       image.src = img;
       image.onload = function () {
         vm.loading -= 1;
@@ -51,6 +51,8 @@
 
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
+a
+  color: #000
 .warp
   height: 100%
   text-align: center
@@ -88,34 +90,32 @@
     align-items: flex-end
     justify-content: center
     background: url(./img/interface@2x.jpg) center/cover
-    @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-      background: url(./img/interface@3x.jpg) center/cover
-     span
-       font-size: 15px
-       letter-spacing: 1.5px
-       width: 137px
-       margin-bottom: 30vh
-       background: url(./img/button1@2x.png) center/100% no-repeat
-       @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-         background: url(./img/button1@3x.png) center/100% no-repeat
-       height: 36px
-       line-height: 36px
+    span
+     font-size: 15px
+     letter-spacing: 1.5px
+     width: 137px
+     margin-bottom: 30vh
+     background: url(./img/button1@2x.png) center/100% no-repeat
+     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+       background: url(./img/button1@3x.png) center/100% no-repeat
+     height: 36px
+     line-height: 36px
 
-  @keyframes bounce1 {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1);
-    }
+@keyframes bounce1 {
+  0% {
+    transform: scale(0);
   }
-  @keyframes bounce2 {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0);
-    }
+  50% {
+    transform: scale(1);
   }
+}
+@keyframes bounce2 {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0);
+  }
+}
 
 </style>

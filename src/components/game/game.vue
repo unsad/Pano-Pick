@@ -5,12 +5,12 @@
 
     </div>
       <div class="ready" v-if="ready"><span>{{ready}}</span></div>
-    <div class="info" v-if="!over">
+    <!--<div class="info" v-if="false">
       <el-card class="box-card">
         <div>剩余时间: {{time}}s</div>
         <div>任务进度: {{foundCount}}/8</div>
       </el-card>
-    </div>
+    </div>-->
     </template>
     <div class="overInfo" v-if="over">
       <div class="item">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import img_1 from './img/shanghai-min.jpg';
+  import img_1 from '../../assets/shanghai-min.jpg';
   import img_2 from './img/car.png';
   const THREE = require('three');
 
@@ -146,8 +146,8 @@
       let sprite = new THREE.Sprite(spriteMaterial);
       sprite.scale.set(20, 20, 1);
       sprite.position.x = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
-      sprite.position.y = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
-      sprite.position.z = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
+      sprite.position.y = 300 * Math.random();
+      sprite.position.z = 80 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
       return sprite;
     }
     for (let i = 0; i < 8; i++) {
@@ -265,8 +265,8 @@ function addEvent() {
   function onTouchmove(event) {
     if (event.changedTouches[1] == undefined) {// 单点触控
       if (isUserInteracting === true) {
-        lon = (onPointerDownPointerX - event.changedTouches[0].pageX) * 0.1 + onPointerDownLon;
-        lat = (event.changedTouches[0].pageY - onPointerDownPointerY) * 0.1 + onPointerDownLat;
+        lon = (onPointerDownPointerX - event.changedTouches[0].pageX) * 0.2 + onPointerDownLon;
+        lat = (event.changedTouches[0].pageY - onPointerDownPointerY) * 0.2 + onPointerDownLat;
       }
     } else {// 双点触控
       const deltaX = 15,
@@ -360,8 +360,8 @@ let alpha, beta, gamma, changeA, changeB;
 
     if ( isUserInteracting === true ) {
 
-      lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
-      lat = ( event.clientY - onPointerDownPointerY ) * 0.1 + onPointerDownLat;
+      lon = ( onPointerDownPointerX - event.clientX ) * 0.2 + onPointerDownLon;
+      lat = ( event.clientY - onPointerDownPointerY ) * 0.2 + onPointerDownLat;
 
     }
 

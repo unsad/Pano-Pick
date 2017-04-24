@@ -1,11 +1,13 @@
 <template>
   <div class="warp">
-    <div class="p" v-if="loading">
+    <div class="warp-1" v-if="loading">
+    <div class="p">
       <div class="loading">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
       </div>
       <div>资源加载中</div>
+    </div>
     </div>
   <div v-if="!loading" class="root">
       <span>
@@ -56,11 +58,13 @@ a
 .warp
   height: 100%
   text-align: center
-  &:after
-    content: ''
-    display: inline-block
+  .warp-1
     height: 100%
-    vertical-align: middle
+    &:after
+      content: ''
+      display: inline-block
+      height: 100%
+      vertical-align: middle
   .p
     color: #1c8de0
     display: inline-block

@@ -146,7 +146,7 @@
       let sprite = new THREE.Sprite(spriteMaterial);
       sprite.scale.set(20, 20, 1);
       sprite.position.x = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
-      sprite.position.y = 300 * Math.random();
+      sprite.position.y = 250 * Math.random();
       sprite.position.z = 80 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
       return sprite;
     }
@@ -389,9 +389,10 @@ let alpha, beta, gamma, changeA, changeB;
 
   function update() {
 
-    lat = Math.max( - 85, Math.min( 85, lat ) );
+    lat = Math.max( - 85, Math.min( 30, lat ) );
     phi = THREE.Math.degToRad( 90 - lat );
     theta = THREE.Math.degToRad( lon );
+
 
     camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
     camera.target.y = 500 * Math.cos( phi );

@@ -1,12 +1,12 @@
 <template>
   <div class="root">
-    <span>微信关注广汽三菱</span>
+  <!--  <span>微信关注广汽三菱</span>
     <span></span>
     <span>回复领牛币</span>
     <span></span>
     <span>输入手机号码</span>
     <span></span>
-    <span>领取牛币</span>
+    <span>领取牛币</span>-->
   </div>
 </template>
 
@@ -21,7 +21,7 @@
   background: url(./img/interface-2@2x.jpg) center/100%
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
    background: url(./img/interface-2@3x.jpg) center/100%
-  display: flex
+/*  display: flex
   text-align: center
   flex-direction: column
   justify-content: center
@@ -39,5 +39,5 @@
     line-height: 36px
     background: url(./img/button2@2x.png) center/100%  no-repeat
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-      background: url(./img/button2@3x.png) center/100% no-repeat
+      background: url(./img/button2@3x.png) center/100% no-repeat*/
 </style>

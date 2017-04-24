@@ -17,7 +17,7 @@
   </div>
   </template>
 <script>
-  import img1 from '../../assets/shanghai-min.jpg';
+  import img1 from '../get/img/interface-2@2x.jpg';
   import img2 from './img/interface@2x.jpg';
 
   export default {

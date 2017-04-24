@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import img_1 from '../../assets/shanghai-min.jpg';
-  import img_2 from './img/car.png';
+  const img_1 =require('../../assets/shanghai-min.jpg');
+  const img_2 = require('./img/car.png');
   const THREE = require('three');
 
   export default {
@@ -146,7 +146,7 @@
       let sprite = new THREE.Sprite(spriteMaterial);
       sprite.scale.set(20, 20, 1);
       sprite.position.x = 300 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
-      sprite.position.y = 250 * Math.random();
+      sprite.position.y = 300 * Math.random();
       sprite.position.z = 80 * Math.random() * (Math.random() > 0.5 ? 1 : -1);
       return sprite;
     }

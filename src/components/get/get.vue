@@ -19,8 +19,6 @@
 .root
   height: 100%
   background: url(./img/interface-2@2x.jpg) center/100%
-  @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
-   background: url(./img/interface-2@3x.jpg) center/100%
 /*  display: flex
   text-align: center
   flex-direction: column

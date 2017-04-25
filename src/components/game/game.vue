@@ -304,7 +304,7 @@ let alpha, beta, gamma, changeA, changeB;
     if (alpha) {
       changeA = event.alpha + event.gamma - alpha - gamma;
       changeB = event.beta  - beta ;
-      lon = lon + changeA;
+      lon = lon - changeA;
       lat = lat + changeB;
     }
     alpha = event.alpha;
@@ -400,7 +400,7 @@ let alpha, beta, gamma, changeA, changeB;
 
   function update() {
 
-    lat = Math.max( - 85, Math.min( 30, lat ) );
+    lat = Math.max( -30, Math.min( 30, lat ) );
     phi = THREE.Math.degToRad( 90 - lat );
     theta = THREE.Math.degToRad( lon );
 

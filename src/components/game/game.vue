@@ -4,7 +4,7 @@
     <div id="container" :class="{'blur': over}">
 
     </div>
-      <div class="ready" v-if="ready"><span>{{ready}}</span></div>
+      <div class="ready" v-if="ready"><span :style="{'fontSize': loading ? '20px' : '100px'}">{{ready}}</span></div>
     <!--<div class="info" v-if="false">
       <el-card class="box-card">
         <div>剩余时间: {{time}}s</div>
@@ -32,9 +32,11 @@
     data() {
       return {
         time: 20,
-        ready: 5,
+        ready: '全景游戏加载中...',
         foundCount: 0,
-        over: false
+        over: false,
+        meterSky:'',
+        loading: true
       }
     },
     computed: {
@@ -65,6 +67,7 @@
         }, 1000);
       },
       curReady() {
+        this.ready = 5;
         let listenReady = setInterval(() => {
           this.ready -= 1;
           if (this.ready === 0) {
@@ -73,15 +76,23 @@
           }
         }, 1000);
       },
+      createMeter() {
+        this.materSky = new THREE.TextureLoader().load(img_1, () => {
+          this.loading = false;
+        });
+      },
       init,
       animate,
       addEvent
     },
+    created() {
+      this.createMeter();
+      this.$watch('loading', this.curReady)
+    },
     mounted() {
-      this.init();
+      this.init(this.materSky);
       this.animate();
       this.addEvent();
-      this.curReady();
     }
   }
   let camera, scene, renderer;
@@ -92,7 +103,6 @@
     lat = 0, onPointerDownLat = 0,
     phi = 0, theta = 0,
     startDistance = 0;
-  const materSky = new THREE.TextureLoader().load(img_1);
   const materCar = new THREE.TextureLoader().load(img_2);
 
   const raycaster = new THREE.Raycaster();
@@ -103,9 +113,10 @@
     return !scores.includes(false);
   };
 
-  function init() {
+  function init(mater) {
 
     let container, mesh;
+    const materSky = mater;
 
     container = document.getElementById('container');
 

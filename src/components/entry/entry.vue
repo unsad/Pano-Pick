@@ -31,13 +31,13 @@
     },
     methods: {
       checkDate() {
-        let compare = Date.now() - new Date(2017, 4, 3);
+        let compare = Date.now() - new Date(2017, 10, 3);
         this.toggle = compare < 0 ? '/game' : '/outDate';
       }
     },
     created() {
       this.checkDate();
-      loading(this.imgArr, this)
+      loading(this.imgArr, this);
     }
   };
 

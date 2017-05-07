@@ -274,7 +274,7 @@ function addEvent() {
   }
 
   function onTouchmove(event) {
-    if (event.changedTouches[1] == undefined) {// 单点触控
+    if (event.changedTouches[1] === undefined) {// 单点触控
       if (isUserInteracting === true) {
         lon = (onPointerDownPointerX - event.changedTouches[0].pageX) * 0.2 + onPointerDownLon;
         lat = (event.changedTouches[0].pageY - onPointerDownPointerY) * 0.2 + onPointerDownLat;
@@ -471,5 +471,4 @@ let alpha, beta, gamma, changeA, changeB;
         font-size: 100px
   .blur
     filter: blur(3px)
-
 </style>
